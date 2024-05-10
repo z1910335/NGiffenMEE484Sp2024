@@ -4,6 +4,7 @@
 //============================================================================
 using System;
 using SimUtils;
+using Godot;
 
 namespace Sim
 {    
@@ -24,10 +25,12 @@ namespace Sim
             x[1] = 0.0;    // q1
             x[2] = 0.0;    // q2
             x[3] = 0.0;    // q3
-            x[4] = 0.05;    // u1   body angular velocity
-            x[5] = 1.05;   // u2   body angular velocity
+            x[4] = 0.001;    // u1   body angular velocity
+            x[5] = 3.0;   // u2   body angular velocity
             x[6] = 0.0;    // u3   body angular velocity
-
+            //x[7] = x[5] / I1;
+            //x[8] = x[6] / I2;
+            //x[9] = x[7] / I3;
             SetRHSFunc(RHSFunc);
         }
 
@@ -57,6 +60,11 @@ namespace Sim
             ff[5] = (I3 - I1)*u1*u3/I2;
             ff[6] = (I1 - I2)*u1*u2/I3;
 
+            // Omega/MoI
+            //ff[7] = omega1/I1;
+            //ff[8] = omega2/I2;
+            //ff[9] = omega3/I3;
+
         }
 
         //--------------------------------------------------------------------
@@ -81,24 +89,53 @@ namespace Sim
         }
         public double omega1
         {
-            get{ return x[4]; }
-
-            set{ x[4] = value; }
+            get { return x[4]; }
+            set 
+            { 
+                x[4] = value; 
+                GD.Print("Setting omega1 in SpinBook: ", x[4]);
+            }
         }
 
         public double omega2
         {
-            get{ return x[5]; }
-
-            set{ x[5] = value; }
+            get { return x[5]; }
+            set 
+            { 
+                x[5] = value; 
+                GD.Print("Setting omega2 in SpinBook: ", x[5]);
+            }
         }
 
         public double omega3
         {
-            get{ return x[6]; }
-
-            set{ x[6] = value; }
+            get { return x[6]; }
+            set 
+            { 
+                x[6] = value; 
+                GD.Print("Setting omega3 in SpinBook: ", x[6]);
+            }
         }
+        /*
+        public double omega1Norm
+        {
+            get{ return x[7]; }
+
+            set{ x[7] = value; }
+        }
+        public double omega2Norm
+        {
+            get{ return x[8]; }
+
+            set{ x[8] = value; }
+        }
+        public double omega3Norm
+        {
+            get{ return x[9]; }
+
+            set{ x[9] = value; }
+        }
+        */
         public double IG1
         {
             get{ return I1; }
@@ -130,5 +167,4 @@ namespace Sim
             }
         }
     }
-
 }

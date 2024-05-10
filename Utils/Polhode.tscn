@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://exg5wn521y64"]
+
+[ext_resource type="Script" path="res://Utils/Polhode.cs" id="1_rem3p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxr1q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y0req"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_afm4d"]
+
+[node name="polhodeSphere" type="Node3D"]
+script = ExtResource("1_rem3p")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0279286, -0.00499988, 2.95481)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -141.0
+offset_right = 141.0
+grow_vertical = 0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="PolhodeCamera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.759536)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/PolhodeCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.59779)
+material_override = SubResource("StandardMaterial3D_qxr1q")
+material_overlay = SubResource("StandardMaterial3D_y0req")
+mesh = SubResource("SphereMesh_afm4d")

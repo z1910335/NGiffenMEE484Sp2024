@@ -83,6 +83,10 @@ public partial class SpinBookScene : Node3D
         sim.IG2 = 2.0;
         sim.IG3 = 3.0;
 
+		GD.Print("Omega1: ", sim.omega1);
+		GD.Print("Omega2: ", sim.omega2);
+		GD.Print("Omega3: ", sim.omega3);
+
 		quat = new Quaternion();
 		quat = Quaternion.Identity;
 
@@ -109,6 +113,7 @@ public partial class SpinBookScene : Node3D
 			datDisplay.SetValue(2, (float)sim.omega3);
 			dispCtr = 0;
 		}
+
 		++dispCtr;
 	}
 
